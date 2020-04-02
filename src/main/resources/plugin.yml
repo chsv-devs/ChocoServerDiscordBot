@@ -1,0 +1,5 @@
+﻿name: discordapi
+version: "1.0.0"
+api: [1.0.0]
+author: hancho
+main: hancho.plugin.nukkit.discordapi.discordapi
