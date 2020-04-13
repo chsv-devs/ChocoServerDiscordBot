@@ -1,5 +1,5 @@
-﻿name: discordapi
+﻿name: HcDiscordBot
 version: "1.0.0"
 api: [1.0.0]
 author: hancho
-main: hancho.plugin.nukkit.discordapi.discordapi
+main: hcDiscordBot.HcDiscordBot

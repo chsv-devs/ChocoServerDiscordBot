@@ -1,18 +1,19 @@
-package hancho.plugin.nukkit.discordapi;
+package hcDiscordBot.Listeners;
 
 import java.awt.Color;
 import java.util.LinkedHashMap;
 
 import cn.nukkit.IPlayer;
 import cn.nukkit.scheduler.AsyncTask;
+import hcDiscordBot.HcDiscordBot;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class discordListener extends ListenerAdapter {
-	discordapi plugin;
-	public discordListener(discordapi plugin) {
+	HcDiscordBot plugin;
+	public discordListener(HcDiscordBot plugin) {
 		this.plugin = plugin;
 	}
 	@Override
