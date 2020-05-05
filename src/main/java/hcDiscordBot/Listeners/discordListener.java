@@ -61,7 +61,8 @@ public class discordListener extends ListenerAdapter {
 	public void onPrivateMessageReceived(PrivateMessageReceivedEvent ev){
 		if(this.plugin.accountManager.isExistToken(ev.getMessage().getContentRaw())){
 			String token = ev.getMessage().getContentRaw();
-			this.plugin.accountManager.linkAccount((String) this.plugin.accountManager.getTokenData(token).get("name"), ev.getAuthor().getId());
+			//this.plugin.accountManager.linkAccount((String) this.plugin.accountManager.getTokenData(token).get("name"), ev.getAuthor().getId());
+			this.plugin.accountManager.toggleAwaitState(token);
 			ev.getChannel().sendMessage("서버에 접속하여 ``/디스코드`` 명령어를 입력해보세요!").queue();
 		}
 		if(!ev.getMessage().getAttachments().isEmpty()){

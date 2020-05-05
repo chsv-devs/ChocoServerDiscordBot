@@ -64,7 +64,7 @@ public class AccountManager {
     }
 
     public LinkedHashMap<String, String> getIdMap(){
-        return (LinkedHashMap<String, String>) this.accountData.get("link_discordID_with_Nickname");
+        return (LinkedHashMap<String, String>) this.accountData.getOrDefault("link_discordID_with_Nickname", new LinkedHashMap<>());
     }
 
     public String getID(String name){
@@ -96,11 +96,11 @@ public class AccountManager {
     }
 
     public LinkedHashMap<String, String> getTokenByNameMap(){
-        return (LinkedHashMap<String, String>) this.accountData.get("token_byName");
+        return (LinkedHashMap<String, String>) this.accountData.getOrDefault("token_byName", new LinkedHashMap<>());
     }
 
     public LinkedHashMap<String, Object> getTokenDataMap(){
-        return (LinkedHashMap<String, Object>) this.accountData.get("token_data");
+        return (LinkedHashMap<String, Object>) this.accountData.getOrDefault("token_data", new LinkedHashMap<>());
     }
 
     public void setTokenByNameMap(LinkedHashMap<String, String> m){
@@ -116,12 +116,14 @@ public class AccountManager {
         m.put(name, token);
         this.setTokenByNameMap(m);
         LinkedHashMap<String, Object> tokenDataMap = this.getTokenDataMap();
-        tokenDataMap.put(token, new LinkedHashMap<String, Object>());
+        LinkedHashMap<String, Object> tm = new LinkedHashMap<>();
+        tm.put("name", name);
+        tokenDataMap.put(token, tm);
         this.setTokenDataMap(tokenDataMap);
     }
 
     public LinkedHashMap<String, Object> getTokenData(String token){
-        return (LinkedHashMap<String, Object>) this.getTokenDataMap().get(token);
+        return (LinkedHashMap<String, Object>) this.getTokenDataMap().getOrDefault(token, new LinkedHashMap<>());
     }
 
     public void setTokenData(String token, LinkedHashMap<String, Object> m){
@@ -143,7 +145,7 @@ public class AccountManager {
         LinkedHashMap<String, Object> tokenMap = this.getTokenDataMap();
         LinkedHashMap<String, Object> data = getTokenData(token);
         LinkedHashMap<String, String> byNameMap = this.getTokenByNameMap();
-        byNameMap.remove(data.get("name"));
+        byNameMap.remove(data.getOrDefault("name", ""));
         this.setTokenByNameMap(byNameMap);
         tokenMap.remove(token);
         this.setTokenDataMap(tokenMap);
@@ -176,6 +178,7 @@ public class AccountManager {
 
         LinkedHashMap<String, String> idMap = this.getIdMap();
         idMap.put(id, name);
+        this.resetToken(name);
         this.setIdMap(idMap);
     }
 

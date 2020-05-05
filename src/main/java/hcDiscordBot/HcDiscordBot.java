@@ -60,12 +60,12 @@ public class HcDiscordBot extends PluginBase {
 		Config config = getConfig();
 		Config serverDataConfig = new Config(this.getDataFolder().getPath() + "/data.yml", Config.YAML);
 		Config subAccountConfig = new Config(this.getDataFolder().getPath() + "/subAccount.yml", Config.YAML);
-		Config discordAccountConfig = new Config(this.getDataFolder().getAbsolutePath() + "/discordAccountConfig", Config.YAML);
+		Config discordAccountConfig = new Config(this.getDataFolder().getAbsolutePath() + "/discordAccount.yml", Config.YAML);
 		Config imageConfig = new Config(this.getDataFolder().getAbsolutePath() + "/imageConfig.yml", Config.YAML);
 		String token = config.getString("token");
 		LinkedHashMap<String, Object> subAccountData = (LinkedHashMap<String, Object>) subAccountConfig.getAll();
-		LinkedHashMap<String, String> isWarnedData = (LinkedHashMap<String, String>) serverData.getOrDefault("warnedData", new LinkedHashMap<String, String>());
 		this.serverData = (LinkedHashMap<String, Object>) serverDataConfig.getAll();
+		LinkedHashMap<String, String> isWarnedData = (LinkedHashMap<String, String>) serverData.getOrDefault("warnedData", new LinkedHashMap<String, String>());
 		this.LinkAccountData = (LinkedHashMap<String, Object>) discordAccountConfig.getAll();
 		if (token.equals("")) {
 			this.getServer().getPluginManager().disablePlugin(this);
@@ -93,12 +93,13 @@ public class HcDiscordBot extends PluginBase {
 			this.accountManager = new AccountManager(this);
 			this.eventListeners = new EventListeners(this);
 			this.subAccountManager = new SubAccountManager(this,subAccountData, isWarnedData);
-			this.imageManager = new ImageManager((LinkedHashMap<String, Object>) imageConfig.getAll(), this.guild, this.accountManager);
+			this.imageManager = new ImageManager((LinkedHashMap<String, Object>) imageConfig.getAll(), this);
 			this.scheduling();
 			this.getServer().getPluginManager().registerEvents(eventListeners, this);
 			this.getServer().getPluginManager().registerEvents(new ChatEvent(this), this);
 		}
 		this.isJDALoaded = true;
+
 		this.guild = jda.getGuildById(guildID);
 		this.adminChannel = jda.getTextChannelById("590963879190986752");
 	}
@@ -123,7 +124,7 @@ public class HcDiscordBot extends PluginBase {
 		}
 		Config serverDataConfig = new Config(this.getDataFolder().getPath() + "/data.yml", Config.YAML);
 		Config subAccountConfig = new Config(this.getDataFolder().getPath() + "/subAccount.yml", Config.YAML);
-		Config discordAccountConfig = new Config(this.getDataFolder().getAbsolutePath() + "/discordAccountConfig", Config.YAML);
+		Config discordAccountConfig = new Config(this.getDataFolder().getAbsolutePath() + "/discordAccount.yml", Config.YAML);
 		Config imageConfig = new Config(this.getDataFolder().getAbsolutePath() + "/imageConfig.yml", Config.YAML);
 		this.serverData.put("warnedData", this.subAccountManager.isWarnedData);
 		imageConfig.setAll(this.imageManager.data);

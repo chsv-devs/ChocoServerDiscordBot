@@ -143,6 +143,7 @@ public class EventListeners implements Listener{
 			if(id == IS_YOU_MODAL_FORM){
 				if(clickedID == 0){
 					this.accountManager.linkAccount(player.getName(), this.accountManager.getTokenByName(player.getName()));
+
 					FormWindowSimple form = new FormWindowSimple("§0연동 완료", PREFIX + "성공적으로 연동되었습니다!" );
 					player.showFormWindow(form );
 					return;
@@ -157,6 +158,7 @@ public class EventListeners implements Listener{
 		String token = this.accountManager.getTokenByName(player.getName());
 		if(token == null){
 			this.accountManager.resetToken(player.getName());
+			token = this.accountManager.getTokenByName(player.getName());
 		}
 		HashMap<String, Object> data = this.accountManager.getTokenData(token);
 		if(data.containsKey("isWaiting")){
@@ -166,7 +168,7 @@ public class EventListeners implements Listener{
 				return;
 			}
 		}
-		FormWindowSimple form = new FormWindowSimple("§0디스코드 연동", PREFIX + "아래 토큰은 초코서버 봇 개인 채팅으로 보내주세요! \n" + PREFIX + token);
+		FormWindowSimple form = new FormWindowSimple("§0디스코드 연동", PREFIX + "아래 토큰을 초코서버 봇 개인 채팅으로 보내주세요! \n" + PREFIX + token);
 		player.showFormWindow(form);
 	}
 
