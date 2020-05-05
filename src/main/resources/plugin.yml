@@ -3,3 +3,9 @@ version: "1.0.0"
 api: [1.0.0]
 author: hancho
 main: hcDiscordBot.HcDiscordBot
+
+commands:
+  디스코드:
+    description: "디스코드 계정을 연동해보세요"
+    permision: 'true'
+    aliases: ["디코", "dc", "discord"]
