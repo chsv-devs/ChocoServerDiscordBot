@@ -27,7 +27,7 @@ import net.dv8tion.jda.api.entities.*;
 public class HcDiscordBot extends PluginBase {
 	public static final String PREFIX = "§l§f[ §b! §f] ";
 	public static final String BUTTON_LINKACCOUNT_TEXT = "계정 연동하기";
-	public static final String guildID = "508167852042485760";
+	public static final String guildID = "713044757172977756";
 	//JDA
 	public JDA jda;
 	public JDABuilder jb;
@@ -154,16 +154,6 @@ public class HcDiscordBot extends PluginBase {
 		this.adminChannel.sendMessage(content).queue();
 	}
 
-	@Deprecated
-	public void sendMessage(String guildId, String textChannelId, String  content){
-		if(!this.isJDALoaded){
-			this.getLogger().warning(content);
-			return;
-		}
-		TextChannel tc = this.guild.getTextChannelById(textChannelId);
-		this.sendMessage(this.guild, tc, content);
-	}
-
 	public void sendMessage(String textChannelId, String content){
 		if(!this.isJDALoaded){
 			this.getLogger().warning(content);
@@ -225,7 +215,7 @@ public class HcDiscordBot extends PluginBase {
 
 			@Override
 			public void onRun() {
-				jda.getPresence().setActivity(Activity.playing((getServer().getOnlinePlayers().size()) + "명 온라인"));
+				jda.getPresence().setActivity(Activity.playing((getServer().getOnlinePlayers().size()) + "명의 🍫"));
 			}
 
 		}, 20 * 5);
