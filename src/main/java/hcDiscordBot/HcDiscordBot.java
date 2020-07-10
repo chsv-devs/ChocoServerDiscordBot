@@ -249,7 +249,8 @@ public class HcDiscordBot extends PluginBase {
 
 					eb.setTitle("데일리 리포트");
 					eb.addField("오늘의 접속자", mainContents, false);
-					tc.sendMessage(eb.build()).queue();
+					if(tc != null)
+						tc.sendMessage(eb.build()).queue();
 
 					bandContentBuilder
 							.append(today)
