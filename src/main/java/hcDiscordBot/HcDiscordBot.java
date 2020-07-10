@@ -27,7 +27,7 @@ import net.dv8tion.jda.api.entities.*;
 public class HcDiscordBot extends PluginBase {
 	public static final String PREFIX = "§l§f[ §b! §f] ";
 	public static final String BUTTON_LINKACCOUNT_TEXT = "계정 연동하기";
-	public static final String guildID = "713044757172977756";
+	public static final String guildID = "508167852042485760";
 	//JDA
 	public JDA jda;
 	public JDABuilder jb;
