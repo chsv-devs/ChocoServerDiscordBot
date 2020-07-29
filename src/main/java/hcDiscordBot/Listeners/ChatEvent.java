@@ -11,8 +11,11 @@ import java.awt.*;
 
 public class ChatEvent implements Listener {
     public static final String[] BAD_WORDS = {
-            "시발", "병신", "애미", "뒤진", "쉑", "ㅈㄲ", "ㅈㄹ", "지랄", "좆", "ㅄ", "ㅂㅅ", "후장", "ㅅㅂ", "뒤지", "닥쳐", "섹스", "섹", "븅", "썅", "놈", "씨발", "ㅆㅂ"
-            ,"앰","호로","tlqkf", "SSIBAL", "자위", "앰", "ㅗ", "새꺄"};
+            "시발", "병신", "애미", "뒤진", "쉑", "ㅈㄲ", "ㅈㄹ", "지랄", "좆", "ㅄ"
+            , "ㅂㅅ", "후장", "ㅅㅂ", "섻", "닥쳐", "섹스", "섹", "븅", "썅", "놈"
+            , "씨발", "ㅆㅂ","앰뒤","호로","tlqkf", "SSIBAL", "자위", "앰", "ㅗ", "새꺄"
+            , "ㅆ바", "존나", "ㅈㄴ", "새끼", "개소리", "뒤질", "뒤지"
+    };
     public final Color embedColor = new Color(255, 82, 121);
     public HcDiscordBot owner;
 
@@ -22,6 +25,8 @@ public class ChatEvent implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerChat(PlayerChatEvent ev){
+        boolean isSent = false;
+        boolean isReplaced = false;
         String message = ev.getMessage();
         this.owner.todayDB.addCount("dc_count_chat", 1);
         // 욕설 감지 부분, 성능 문제를 최소화 하기 위하여 아주 기본적인 방법으로만 검사함
@@ -34,25 +39,29 @@ public class ChatEvent implements Listener {
                 if(s.equals("ㅗ")){
                     if(message.contains("ㅗㅜㅑ")) return;
                 }
-                EmbedBuilder embedBuilder = new EmbedBuilder();
-                embedBuilder.setTitle("욕설 감지 : " + ev.getPlayer().getName());
-                embedBuilder.addField("내용", message, false);
-                embedBuilder.addField("감지된 욕설", s, false);
-                embedBuilder.setColor(this.embedColor);
-                if(!this.owner.isJDALoaded){
-                    this.owner.getLogger().warning("욕설감지 : " + ev.getPlayer().getName());
-                }else {
-                    this.owner.sendEmbedMessage("704679105664385087", embedBuilder.build());
+                if(!isSent) {
+                    EmbedBuilder embedBuilder = new EmbedBuilder();
+                    embedBuilder.setTitle("욕설 감지 : " + ev.getPlayer().getName());
+                    embedBuilder.addField("내용", message, false);
+                    embedBuilder.addField("감지된 욕설", s, false);
+                    embedBuilder.setColor(this.embedColor);
+                    if (!this.owner.isJDALoaded) {
+                        this.owner.getLogger().warning("욕설감지 : " + ev.getPlayer().getName());
+                    } else {
+                        this.owner.sendEmbedMessage("704679105664385087", embedBuilder.build());
+                    }
+                    isSent = true;
                 }
                 StringBuilder sb = new StringBuilder();
                 for(int i = 0; i < s.length(); i++){
                     sb.append('★');
                 }
-                String replaced = message.replace(s, sb.toString());
-                owner.getLogger().info(replaced);
-                ev.setMessage(replaced);
-                break;
+                message = message.replace(s, sb.toString());
+                isReplaced = true;
             }
+        }
+        if(isReplaced){
+            ev.setMessage(message);
         }
     }
 }
