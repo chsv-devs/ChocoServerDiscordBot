@@ -6,6 +6,7 @@ import cn.nukkit.event.Listener;
 import cn.nukkit.event.player.PlayerChatEvent;
 import hcDiscordBot.HcDiscordBot;
 import net.dv8tion.jda.api.EmbedBuilder;
+import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
 
@@ -56,7 +57,7 @@ public class ChatEvent implements Listener {
                 for(int i = 0; i < s.length(); i++){
                     sb.append('★');
                 }
-                message = message.replace(s, sb.toString());
+                message = StringUtils.replace(message, s, sb.toString());
                 isReplaced = true;
             }
         }
