@@ -13,9 +13,9 @@ import java.awt.*;
 public class ChatEvent implements Listener {
     public static final String[] BAD_WORDS = {
             "시발", "병신", "애미", "뒤진", "쉑", "ㅈㄲ", "ㅈㄹ", "지랄", "좆", "ㅄ"
-            , "ㅂㅅ", "후장", "ㅅㅂ", "섻", "닥쳐", "섹스", "섹", "븅", "썅", "놈"
-            , "씨발", "ㅆㅂ","앰뒤","호로","tlqkf", "SSIBAL", "자위", "앰", "ㅗ", "새꺄"
-            , "ㅆ바", "존나", "ㅈㄴ", "새끼", "개소리", "뒤질", "뒤지"
+            , "ㅂㅅ", "후장", "ㅅㅂ", "섻", "닥쳐", "섹스", "섹", "븅", "썅", "씨발"
+            , "ㅆㅂ","앰뒤","호로","tlqkf", "SSIBAL", "자위", "ㅗ", "새꺄"
+            , "ㅆ바", "존나", "ㅈㄴ", "새끼", "개소리", "뒤질"
     };
     public final Color embedColor = new Color(255, 82, 121);
     public HcDiscordBot owner;
@@ -39,6 +39,9 @@ public class ChatEvent implements Listener {
                 }
                 if(s.equals("ㅗ")){
                     if(message.contains("ㅗㅜㅑ")) return;
+                }
+                if(s.equals("호로")){
+                    if(message.contains("칭호로")) return;
                 }
                 if(!isSent) {
                     EmbedBuilder embedBuilder = new EmbedBuilder();
