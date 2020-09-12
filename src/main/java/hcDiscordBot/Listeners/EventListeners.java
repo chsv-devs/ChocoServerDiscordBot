@@ -53,7 +53,7 @@ public class EventListeners implements Listener{
 		if (todayMax < playersSize) {
 			main.todayDB.put("dc_today_max", playersSize);
 		}
-		if ((int) main.serverData.getOrDefault("maxPlayes", 20) < playersSize) {
+		if ((int) main.serverData.getOrDefault("maxPlayers", 20) < playersSize) {
 			main.serverData.put("maxPlayers", playersSize);
 			TextChannel tc = main.guild.getTextChannelById(586795896977489920L);
 			EmbedBuilder embed = new EmbedBuilder();
