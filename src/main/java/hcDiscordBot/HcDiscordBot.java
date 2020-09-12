@@ -248,9 +248,7 @@ public class HcDiscordBot extends PluginBase {
 					mainContents = playerlistBuilder.toString();
 
 					eb.setTitle("데일리 리포트");
-					eb.addField("오늘의 접속자", mainContents, false);
-					if(tc != null)
-						tc.sendMessage(eb.build()).queue();
+					eb.addField("오늘의 접속자", mainContents.substring(0, 1000), false);
 
 					bandContentBuilder
 							.append(today)
@@ -275,6 +273,14 @@ public class HcDiscordBot extends PluginBase {
 							.append(mainContents);
 
 					bandMaster.postBand(bandContentBuilder.toString(), false, true);
+
+					try {
+						if (tc != null)
+							tc.sendMessage(eb.build()).queue();
+					}catch (Exception ignore){
+
+					}
+
 					today = sdf.format(System.currentTimeMillis());
 					todayMillis = System.currentTimeMillis();
 				}
