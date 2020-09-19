@@ -252,8 +252,8 @@ public class HcDiscordBot extends PluginBase {
 
 					bandContentBuilder
 							.append(today)
-							.append("데일리 리포트(시즌3 테스트)\n")
-							.append("\n서버 개요 : http://ccc1.kro.kr:19139/server/Chocoserver#tab-online-activity-overview&calendar-tab\n\n누적 최고접속(테스트 값) : ")
+							.append("데일리 리포트\n")
+							.append("\n서버 개요 : http://ccc1.kro.kr:19139/server/Chocoserver#tab-online-activity-overview&calendar-tab\n\n누적 최고접속 : ")
 							.append(serverData.getOrDefault("maxPlayers", 20))
 							.append("\n오늘자 최고접속 : ")
 							.append(todayMax)
