@@ -55,6 +55,10 @@ public class discordListener extends ListenerAdapter {
 			}
 			tc.sendMessage(plugin.economyAPI.myMoney(player) + "원").queue();
 		}
+		if(msg.equals("/재부팅")){
+			tc.sendMessage("서버 종료하는 중...").queue();
+			plugin.getServer().shutdown();
+		}
 		if(msg.equals("^내돈")) {
 			tc.sendMessage("아직 초코서버와 연동되지 않았습니다. 곧 추가될 기능입니다.").queue();
 		}
