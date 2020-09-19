@@ -1,11 +1,12 @@
 package hcDiscordBot.Listeners;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import cn.nukkit.IPlayer;
+import cn.nukkit.Nukkit;
 import cn.nukkit.scheduler.AsyncTask;
 import hcDiscordBot.HcDiscordBot;
 import hcDiscordBot.ImageManager;
@@ -18,6 +19,7 @@ import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class discordListener extends ListenerAdapter {
+	private static final String UPTIME_FORMAT = "%d일 %d시간 %d분 %d초";
 	public final static String IMAGE_PATH = "/var/www/html/discordAccountSync/";
 	private ImageManager imageManager;
 	private final HcDiscordBot plugin;
@@ -100,10 +102,25 @@ public class discordListener extends ListenerAdapter {
 		EmbedBuilder eb = new EmbedBuilder();
 		eb.setTitle("현재 서버상태");
 		eb.setColor(Color.ORANGE);
-		eb.addField("서버 정보", "최고 동접 : " + (int) plugin.serverData.getOrDefault("maxPlayes", 20), false);
+		eb.addField("서버 정보", "최고 동접 : " + (int) plugin.serverData.getOrDefault("maxPlayers", 20), false);
+		eb.addField("동접", plugin.getServer().getOnlinePlayers().size() + "명", false);
+		eb.addField("업타임", formatUptime(System.currentTimeMillis() - Nukkit.START_TIME), false);
+		eb.addField("로드율", plugin.getServer().getTickUsage() + "%", false);
 		map.forEach((levelName , bd) -> {
 			eb.addField("월드 " + levelNames.getOrDefault(levelName, levelName), bd.toString(), false);
 		});
 		tc.sendMessage(eb.build()).queue();
+	}
+
+	//	From Nukkit project
+	private static String formatUptime(long uptime) {
+		long days = TimeUnit.MILLISECONDS.toDays(uptime);
+		uptime -= TimeUnit.DAYS.toMillis(days);
+		long hours = TimeUnit.MILLISECONDS.toHours(uptime);
+		uptime -= TimeUnit.HOURS.toMillis(hours);
+		long minutes = TimeUnit.MILLISECONDS.toMinutes(uptime);
+		uptime -= TimeUnit.MINUTES.toMillis(minutes);
+		long seconds = TimeUnit.MILLISECONDS.toSeconds(uptime);
+		return String.format(UPTIME_FORMAT, days, hours, minutes, seconds);
 	}
 }
