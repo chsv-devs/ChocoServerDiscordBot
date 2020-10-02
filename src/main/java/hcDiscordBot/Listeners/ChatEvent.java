@@ -26,6 +26,12 @@ public class ChatEvent implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerChat(PlayerChatEvent ev){
+        if(owner.hFriend != null){
+            if(owner.hFriend.chatMode.containsKey(ev.getPlayer().getName())) return;
+        }
+        if(owner.hGuild != null){
+            if(owner.hGuild.guildChat.containsKey(ev.getPlayer().getName())) return;
+        }
         boolean isSent = false;
         boolean isReplaced = false;
         String message = ev.getMessage();

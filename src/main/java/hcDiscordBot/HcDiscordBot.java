@@ -12,6 +12,8 @@ import cn.nukkit.command.CommandSender;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.scheduler.AsyncTask;
 import cn.nukkit.utils.Config;
+import com.hancho.hguild.HGuild.HGuild;
+import hFriend.HFriend;
 import hancho.todayDB.TodayDB;
 import hcDiscordBot.Listeners.ChatEvent;
 import hcDiscordBot.Listeners.EventListeners;
@@ -44,6 +46,8 @@ public class HcDiscordBot extends PluginBase {
 	public EconomyAPI economyAPI;
 	public BandMaster bandMaster;
 	public TodayDB todayDB;
+	public HFriend hFriend;
+	public HGuild hGuild;
 	//Managers
 	public SubAccountManager subAccountManager;
 	public ImageManager imageManager;
@@ -88,6 +92,8 @@ public class HcDiscordBot extends PluginBase {
 			this.economyAPI = (EconomyAPI) this.getServer().getPluginManager().getPlugin("EconomyAPI");
 			this.bandMaster = (BandMaster) this.getServer().getPluginManager().getPlugin("BandMaster");
 			this.todayDB = (TodayDB) this.getServer().getPluginManager().getPlugin("TodayDB");
+			this.hFriend = (HFriend) this.getServer().getPluginManager().getPlugin("HFriend");
+			this.hGuild = (HGuild) this.getServer().getPluginManager().getPlugin("HGuild");
 
 			//initializing
 			this.accountManager = new AccountManager(this);
