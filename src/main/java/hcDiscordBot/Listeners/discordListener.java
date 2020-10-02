@@ -104,7 +104,7 @@ public class discordListener extends ListenerAdapter {
 			map.put(player.getLevel().getName(), bd);
 		});
 		EmbedBuilder eb = new EmbedBuilder();
-		eb.setTitle("현재 서버상태");
+		eb.setTitle("--------현재 서버상태--------");
 		eb.setColor(Color.ORANGE);
 		eb.addField("서버 정보", "최고 동접 : " + (int) plugin.serverData.getOrDefault("maxPlayers", 20), false);
 		eb.addField("동접", plugin.getServer().getOnlinePlayers().size() + "명", false);
