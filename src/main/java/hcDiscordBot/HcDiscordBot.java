@@ -254,7 +254,7 @@ public class HcDiscordBot extends PluginBase {
 					mainContents = playerlistBuilder.toString();
 
 					eb.setTitle("데일리 리포트");
-					eb.addField("오늘의 접속자", mainContents.substring(0, 1000), false);
+					eb.addField("오늘의 접속자", mainContents.substring(0, Math.min(mainContents.length(), 1000)), false);
 
 					bandContentBuilder
 							.append(today)
