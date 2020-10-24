@@ -1,1 +1,5 @@
 token : ""
+guildID : ""
+adminChannel : ""
+todayReportChannel : ""
+badWordReportChannel : ""

@@ -1,36 +1,37 @@
-package hcDiscordBot;
+package hcDiscordBot.manager;
 
 import cn.nukkit.Player;
 import cn.nukkit.form.element.ElementButton;
 import cn.nukkit.form.window.FormWindowSimple;
+import hcDiscordBot.HcDiscordBot;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
-import static hcDiscordBot.HcDiscordBot.BUTTON_LINKACCOUNT_TEXT;
 import static hcDiscordBot.HcDiscordBot.PREFIX;
 
+@SuppressWarnings({"unchecked", "unused"})
 public class AccountManager {
     public static final String[] strings = {"S","D","G","E"};
     public static final int MAIN_FORM = 7192;
     public static final int ENTER_NAME_LINK_FORM = MAIN_FORM + 1;
     public static final int SELECT_LINK_FORM = MAIN_FORM + 2;
-    private HcDiscordBot main;
-    private LinkedHashMap<String, Object> accountData;
 
-    public AccountManager(HcDiscordBot owner){
-        this.main = owner;
-        this.accountData = owner.LinkAccountData;
+    private final LinkedHashMap<String, Object> accountData;
+
+    public AccountManager(){
+        this.accountData = HcDiscordBot.INSTANCE.linkAccountData;
     }
 
     public void showMainForm(Player player){
-        StringBuilder content = new StringBuilder(PREFIX);
-        content.append("계정 연동 상태 : ");
-        content.append(this.isLinkedByName(player.getName()) ? "네" : "아니오");
         ArrayList<ElementButton> buttons = new ArrayList<>();
-        buttons.add(new ElementButton(BUTTON_LINKACCOUNT_TEXT));
-        FormWindowSimple form = new FormWindowSimple("§0§l디스코드", content.toString() , buttons);
+        buttons.add(new ElementButton("계정 연동하기"));
+
+        String content = PREFIX + "계정 연동 상태 : " +
+                (this.isLinkedByName(player.getName()) ? "네" : "아니오");
+
+        FormWindowSimple form = new FormWindowSimple("§0§l디스코드", content, buttons);
         player.showFormWindow(form, MAIN_FORM);
 
         /*
@@ -57,7 +58,6 @@ public class AccountManager {
         return (LinkedHashMap<String, Object>) this.accountData.getOrDefault(name, new LinkedHashMap<>());
     }
 
-
     public String getLinkedDate(String gameNickname){
         gameNickname = gameNickname.toLowerCase();
         return (String) this.getUserData(gameNickname).getOrDefault("date", "0");
@@ -74,8 +74,7 @@ public class AccountManager {
     }
 
     public String getID(LinkedHashMap<String, Object> m){
-        String id = (String) m.get("id");
-        return id;
+        return (String) m.get("id");
     }
 
     public void setIdMap(LinkedHashMap<String, String> m){
@@ -153,26 +152,28 @@ public class AccountManager {
     }
 
     public String createToken(){
-        Random random = new Random();
-        return random.nextInt(100000) + strings[random.nextInt(strings.length)];
+        return ThreadLocalRandom.current().nextInt(100000) +
+                strings[ThreadLocalRandom.current().nextInt(strings.length)];
     }
 
     public void resetToken(String name){
         name = name.toLowerCase();
         String token = this.getTokenByName(name);
+
         this.removeToken(token);
         this.addNewTokenData(name, this.createToken());
     }
 
     public void toggleAwaitState(String token){
         LinkedHashMap<String, Object> data = this.getTokenData(token);
+
         data.put("isWaiting", !((boolean) data.getOrDefault("isWaiting", false)));
         this.setTokenData(token, data);
     }
 
     public void linkAccount(String name, String id){
         name = name.toLowerCase();
-        LinkedHashMap<String, Object> m = new LinkedHashMap();
+        LinkedHashMap<String, Object> m = new LinkedHashMap<>();
         m.put("date", System.currentTimeMillis());
         this.accountData.put(name, m);
 
@@ -184,10 +185,13 @@ public class AccountManager {
 
     public void unLinkAccountByName(String name){
         name = name.toLowerCase();
+
         LinkedHashMap<String, Object> userData = this.getUserData(name);
         String id = this.getID(userData);
+
         LinkedHashMap<String, String> idMap = this.getIdMap();
         idMap.remove(id);
+
         this.setIdMap(idMap);
         this.accountData.remove(name);
     }
