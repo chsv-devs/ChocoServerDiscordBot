@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>hancho.plugin.nukkit.discordAPI</groupId>
 	<artifactId>HcDiscordBot</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<repositories>
 		<repository>
 			<id>nukkit-repo</id>
@@ -35,6 +35,18 @@
 					<artifactId>opus-java</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.5</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>me.onebone</groupId>

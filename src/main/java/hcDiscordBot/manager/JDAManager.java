@@ -44,12 +44,11 @@ public class JDAManager {
         jb.addEventListeners(this.plugin.getImageManager());
 
         try {
-            jda = jb.build().awaitReady();
-        } catch (LoginException | InterruptedException e) {
+            jda = jb.build();
+        } catch (LoginException e) {
             this.plugin.getLogger().error("", e);
             return false;
         }
-
         Config config = plugin.getConfig();
         this.mainGuild = jda.getGuildById(config.getString("guildID"));
         this.adminTextChannel = jda.getTextChannelById(config.getString("adminChannel"));
