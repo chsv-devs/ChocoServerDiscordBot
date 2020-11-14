@@ -36,7 +36,7 @@ public class JDAManager {
     }
 
     public boolean loadJDA(){
-        jb = new JDABuilder(token);
+        jb = JDABuilder.createDefault(token);
         jb.setAutoReconnect(true);
         jb.setStatus(OnlineStatus.ONLINE);
         jb.setActivity(Activity.watching("시즌3 시범운영"));
@@ -44,8 +44,8 @@ public class JDAManager {
         jb.addEventListeners(this.plugin.getImageManager());
 
         try {
-            jda = jb.build();
-        } catch (LoginException e) {
+            jda = jb.build().awaitReady();
+        } catch (LoginException | InterruptedException e) {
             this.plugin.getLogger().error("", e);
             return false;
         }
