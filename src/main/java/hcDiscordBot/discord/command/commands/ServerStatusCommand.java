@@ -1,17 +1,18 @@
-package hcDiscordBot.command.commands;
+package hcDiscordBot.discord.command.commands;
 
 import cn.nukkit.Nukkit;
 import cn.nukkit.Server;
-import hcDiscordBot.command.BaseCommand;
+import hcDiscordBot.discord.command.GeneralCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
 
-public class ServerStatusCommand extends BaseCommand {
+public class ServerStatusCommand extends GeneralCommand {
     public static final String UPTIME_FORMAT = "%d일 %d시간 %d분 %d초";
 
     private final LinkedHashMap<String, String> customLevelName = new LinkedHashMap<>();
@@ -23,7 +24,7 @@ public class ServerStatusCommand extends BaseCommand {
     }
 
     @Override
-    public void onCommand(TextChannel tc, Message message) {
+    public void onCommand(MessageChannel messageChannel, Message message) {
         LinkedHashMap<String, StringBuilder> map = new LinkedHashMap<>();
 
         Server.getInstance().getOnlinePlayers().forEach((UUID, player) -> {
@@ -42,7 +43,7 @@ public class ServerStatusCommand extends BaseCommand {
         map.forEach((levelName , bd) -> {
             eb.addField("월드 " + customLevelName.getOrDefault(levelName, levelName), bd.toString(), false);
         });
-        tc.sendMessage(eb.build()).queue();
+        messageChannel.sendMessage(eb.build()).queue();
     }
 
     // From Nukkit project
