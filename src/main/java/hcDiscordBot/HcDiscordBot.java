@@ -25,6 +25,7 @@ import java.util.LinkedHashMap;
 @SuppressWarnings({"unchecked", "unused"})
 public class HcDiscordBot extends PluginBase {
     public static final String PREFIX = "§l§f[ §b! §f] ";
+    public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
     public static HcDiscordBot instant;
 
     public LinkedHashMap<String, Object> serverData;
@@ -37,8 +38,6 @@ public class HcDiscordBot extends PluginBase {
     private ApiManager apiManager;
 
     private MinecraftEventListener minecraftEventListener;
-
-    public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
 
     @Override
     public void onEnable() {
@@ -70,9 +69,9 @@ public class HcDiscordBot extends PluginBase {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (cmd.getName().equals("디스코드")) {
+        if (cmd.getName().equals("이미지")) {
             if (sender instanceof Player) {
-                //this.accountManager.showMainForm((Player) sender);
+                this.getImageManager().showImgListForm((Player) sender);
             }
         }
         return true;
@@ -91,14 +90,11 @@ public class HcDiscordBot extends PluginBase {
 		}
 
 		Config serverDataConfig = new Config(this.getDataFolder().getPath() + "/data.yml", Config.YAML);
-		Config imageConfig = new Config(this.getDataFolder().getAbsolutePath() + "/imageConfig.yml", Config.YAML);
-
-		imageConfig.setAll(this.imageManager.data);
-		imageConfig.save();
 
 		serverDataConfig.setAll(this.serverData);
 		serverDataConfig.save();
 
+		this.getImageManager().save();
 		this.getSubAccountManager().save();
 		this.getAccountManager().save();
 	}

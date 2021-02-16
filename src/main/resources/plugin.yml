@@ -5,7 +5,7 @@ author: hancho
 main: hcDiscordBot.HcDiscordBot
 
 commands:
-  디스코드:
-    description: "디스코드 계정을 연동해보세요"
+  이미지:
+    description: "이미지를 업로드 해 사용하세요"
     permision: 'true'
-    aliases: ["디코", "dc", "discord"]
+    aliases: ["사진", "img"]

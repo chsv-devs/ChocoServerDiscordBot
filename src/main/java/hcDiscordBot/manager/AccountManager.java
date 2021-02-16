@@ -1,5 +1,7 @@
 package hcDiscordBot.manager;
 
+import cn.nukkit.Player;
+import cn.nukkit.form.window.FormWindowSimple;
 import cn.nukkit.utils.Config;
 import hcDiscordBot.HcDiscordBot;
 import lombok.Getter;
@@ -10,8 +12,6 @@ import java.util.concurrent.ThreadLocalRandom;
 @Getter
 @SuppressWarnings({"unchecked", "unused"})
 public class AccountManager {
-    public static final int MAIN_FORM = 7192;
-
     private HcDiscordBot plugin;
     private LinkedHashMap<String, String> tokenMap;       //key -> token, value -> discord user id
     private LinkedHashMap<String, String> linkedAccountMap;      //key -> discord user id, value -> player name
