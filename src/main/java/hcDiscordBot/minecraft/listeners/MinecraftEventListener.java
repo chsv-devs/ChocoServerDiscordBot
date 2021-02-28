@@ -53,7 +53,7 @@ public class MinecraftEventListener implements Listener{
 	}
 
 	@EventHandler
-	public void onJoin(PlayerJoinEvent ev) {
+	public void onPlayerJoin(PlayerJoinEvent ev) {
 		Player player = ev.getPlayer();
 		ApiManager apiManager = this.plugin.getApiManager();
 
@@ -95,7 +95,7 @@ public class MinecraftEventListener implements Listener{
 	}
 
 	@EventHandler
-	public void onPlaceBlock(BlockPlaceEvent ev){
+	public void onBlockPlace(BlockPlaceEvent ev){
 		Block block = ev.getBlock();
 		Player player = ev.getPlayer();
 
@@ -150,6 +150,10 @@ public class MinecraftEventListener implements Listener{
 						}
 					}
 				});
+
+				if(player.getGamemode() != 1){
+					player.getInventory().removeItem(ev.getItem());
+				}
 			}
 		}
 	}
