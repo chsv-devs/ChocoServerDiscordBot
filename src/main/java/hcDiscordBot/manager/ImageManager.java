@@ -177,10 +177,10 @@ public class ImageManager extends ListenerAdapter {
                     this.imageIdMap.put(playerName + attachment.getFileName(), imgId);
                     plugin.getJdaManager().getTextChannelManager().getImageUploadedChannel()
                             .sendMessage(imgId + "_ 이미지가 " + playerName + "님에 의해 등록되었습니다.\n" +
-                                    "||" + attachment.getUrl() + "||\n```이미지 분석 결과\n 정상률 : " + imageCheckResult.getNormal()
-                                    + "\nSoft : " + imageCheckResult.getSoft()
-                                    + "\nAdult : " + imageCheckResult.getAdult()
-                                    + "\n\n대부분의 경우 AI에 의해 필터링되어 이미지 등록이 거부되지만 Adult값이 높은경우 여기에 이모션을 달아 제거시킬 수 있습니다.```");
+                                    "||" + attachment.getUrl() + "||\n```이미지 분석 결과\n일반적인 이미지일 확률 : " + (imageCheckResult.getNormal() * 100)
+                                    + "%\n노출이 포함된 이미지일 확률 : " + (imageCheckResult.getSoft() * 100)
+                                    + "%\n성인 이미지일 확률 : " + (imageCheckResult.getAdult() * 100)
+                                    + "%\n\n대부분의 경우 AI에 의해 필터링되어 이미지 등록이 거부되지만 Adult값이 높은경우 여기에 이모션을 달아 제거시킬 수 있습니다.```");
                 }
 
                 File dir = getUserImgDir(playerName);
@@ -230,7 +230,7 @@ public class ImageManager extends ListenerAdapter {
                 imageCheckResult.setNormal(normal);
                 imageCheckResult.setSoft(soft);
                 imageCheckResult.setAdult(adult);
-                imageCheckResult.setSuccess(normal > 0.7);
+                imageCheckResult.setSuccess(normal > 0.6);
 
                 return imageCheckResult;
             } else {
