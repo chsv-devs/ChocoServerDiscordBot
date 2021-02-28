@@ -120,9 +120,9 @@ public class MinecraftEventListener implements Listener{
 							imageId = plugin.getImageManager().imageIdMap.get(player.getName().toLowerCase() + FilenameUtils.getName(info.filePath));
 
 							if (player.getDirection().getHorizontalIndex() == 0 || player.getDirection().getHorizontalIndex() == 2) {
-								info.pos2 = info.pos1.add(size.get(0), size.get(1), 0);
+								info.pos2 = info.pos1.add(size.get(0) - 1, size.get(1) - 1, 0);
 							} else {
-								info.pos2 = info.pos1.add(0, size.get(1), size.get(0));
+								info.pos2 = info.pos1.add(0, size.get(1) - 1, size.get(0) - 1);
 							}
 
 							ImagePlugin.placeImage(info, false);

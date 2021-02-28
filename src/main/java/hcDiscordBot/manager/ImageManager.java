@@ -164,6 +164,11 @@ public class ImageManager extends ListenerAdapter {
 
                 sizes[0] = (int) Double.parseDouble(args[0]);
                 sizes[1] = (int) Double.parseDouble(args[1]);
+                if(sizes[0] < 1 || sizes[1] < 1){
+                    ev.getChannel().sendMessage("크기는 최소 1블럭 이상이어야 합니다.").queue();
+                    this.requestDataMap.remove(userId);
+                    return;
+                }
                 request.setSize(sizes);
 
                 ImageCheckResult imageCheckResult = checkImg(attachment.getUrl());
